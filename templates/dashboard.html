@@ -1,0 +1,286 @@
+{# Ye line batati hai ki ye page base.html ki styling aur layout ko use karega #}
+{% extends "base.html" %}
+
+{# Yahan se dashboard ka main content start hota hai #}
+{% block content %}
+
+<main class="min-h-screen bg-[#fafaf9] pt-28 pb-16">
+
+  <!-- =====================================================
+       DECORATIVE BACKGROUND
+       Ye piche jo halke colors (blobs) dikhte hain, unke liye hai
+       ===================================================== -->
+  <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div class="blob absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full bg-teal-200/25"></div>
+    <div class="blob absolute top-[45%] -left-48 w-[420px] h-[420px] rounded-full bg-amber-200/15"></div>
+    <div class="absolute top-[30%] right-[20%] w-32 h-32 rounded-full bg-blue-100/20 blur-3xl"></div>
+  </div>
+
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- =====================================================
+         WELCOME HEADER
+         Top section jahan user ka naam aur profile icon aata hai
+         ===================================================== -->
+    <section class="mb-8">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+
+        <div class="flex items-center gap-4">
+          <!-- Avatar Icon (AM likha hua box) -->
+          <div class="relative shrink-0">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-600 to-teal-800 text-white flex items-center justify-center text-xl font-extrabold shadow-xl shadow-teal-700/20">
+              AM
+            </div>
+            <!-- Online status dikhane wala hara dot -->
+            <span class="absolute -right-1 -bottom-1 w-5 h-5 rounded-full bg-emerald-500 border-4 border-[#fafaf9]"></span>
+          </div>
+
+          <!-- Welcome Text aur Details -->
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-teal-700">
+                Traveler dashboard
+              </span>
+              <span class="w-1 h-1 rounded-full bg-slate-300"></span>
+              <span class="text-xs text-slate-400">
+                Member since 2025
+              </span>
+            </div>
+
+            <!-- Main Welcome Heading -->
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950">
+              Welcome back,{{ session.get('full_name', 'Traveler').title() }} 👋
+            </h1>
+            <p class="mt-1.5 text-sm sm:text-base text-slate-500">
+              Your next adventure is closer than you think.
+            </p>
+          </div>
+        </div>
+
+        <!-- Header ki right side wale buttons (Profile aur Explore) -->
+        <div class="flex flex-wrap gap-3">
+          <button class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 shadow-sm hover:border-teal-200 hover:text-teal-700 transition">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.5 18.5a6.5 6.5 0 10-7-11.8"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 4v4h4"/>
+            </svg>
+            My profile
+          </button>
+
+          <a href="#destinations" class="inline-flex items-center gap-2 rounded-xl bg-teal-700 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-teal-700/20 hover:bg-teal-800 transition">
+            Explore destinations
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6l6 6-6 6"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         TRAVEL STATS (4 Cards)
+         Wallet balance, trips booked, companions, aur rewards wale boxes
+         ===================================================== -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+      <!-- Card 1: Wallet Balance -->
+      <div class="lift rounded-3xl bg-white border border-slate-200/80 p-5 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div class="w-11 h-11 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <path stroke-linecap="round" d="M16 12h.01"/>
+              <path stroke-linecap="round" d="M3 8h18"/>
+            </svg>
+          </div>
+          <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 rounded-full px-2 py-1">Available</span>
+        </div>
+        <p class="mt-5 text-xs font-semibold uppercase tracking-wider text-slate-400">Travel balance</p>
+        <h2 class="mt-1 text-2xl font-extrabold text-slate-950">₹42,850</h2>
+        <button class="mt-2 text-xs font-bold text-teal-700 hover:text-teal-800">Add money →</button>
+      </div>
+
+      <!-- Card 2: Trips Booked -->
+      <div class="lift rounded-3xl bg-white border border-slate-200/80 p-5 shadow-sm">
+        <div class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6.5l8-3 8 3v11l-8 3-8-3v-11z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3.5v14M4 6.5l8 3 8-3"/>
+          </svg>
+        </div>
+        <p class="mt-5 text-xs font-semibold uppercase tracking-wider text-slate-400">Trips booked</p>
+        <h2 class="mt-1 text-2xl font-extrabold text-slate-950">12</h2>
+        <p class="mt-2 text-xs text-slate-400">3 upcoming</p>
+      </div>
+
+      <!-- Card 3: Travelers / Companions -->
+      <div class="lift rounded-3xl bg-white border border-slate-200/80 p-5 shadow-sm">
+        <div class="w-11 h-11 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 19v-1.25A3.75 3.75 0 0012.25 14h-4.5A3.75 3.75 0 004 17.75V19"/>
+            <circle cx="10" cy="8" r="3.25"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 11a2.5 2.5 0 100-5M17 14h1a3 3 0 013 3v2"/>
+          </svg>
+        </div>
+        <p class="mt-5 text-xs font-semibold uppercase tracking-wider text-slate-400">Travel companions</p>
+        <h2 class="mt-1 text-2xl font-extrabold text-slate-950">5</h2>
+        <button class="mt-2 text-xs font-bold text-teal-700">Manage travelers →</button>
+      </div>
+
+      <!-- Card 4: Rewards -->
+      <div class="lift rounded-3xl bg-white border border-slate-200/80 p-5 shadow-sm">
+        <div class="w-11 h-11 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3z"/>
+          </svg>
+        </div>
+        <p class="mt-5 text-xs font-semibold uppercase tracking-wider text-slate-400">Travel points</p>
+        <h2 class="mt-1 text-2xl font-extrabold text-slate-950">8,450</h2>
+        <p class="mt-2 text-xs text-amber-600 font-semibold">Gold member</p>
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         NEXT ADVENTURE HERO
+         Bada sa banner image jisme agle trip (Golden Triangle) ki detail hai
+         ===================================================== -->
+    <section class="mb-8">
+      <div class="relative overflow-hidden rounded-[2rem] min-h-[390px] flex items-end">
+        <!-- Background Image -->
+        <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1800&q=85" alt="India travel destination" class="absolute inset-0 w-full h-full object-cover" />
+        
+        <!-- Gradient Overlay (Image ko dark karne ke liye taaki text clear dikhe) -->
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/60 to-slate-950/10"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent"></div>
+
+        <div class="relative z-10 p-7 sm:p-10 max-w-2xl text-white">
+          <div class="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1.5 text-xs font-bold text-white mb-5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            Your next adventure
+          </div>
+
+          <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Golden Triangle</h2>
+          <p class="mt-3 text-sm sm:text-base text-white/75 max-w-lg leading-7">
+            Delhi · Agra · Jaipur <span class="mx-2 text-white/40">•</span> 6 Days / 5 Nights
+          </p>
+
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <div class="inline-flex items-center gap-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 px-4 py-2.5">
+              <span class="text-sm font-bold">⭐ 4.9 rated</span>
+            </div>
+            <div class="inline-flex items-center gap-2 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 px-4 py-2.5">
+              <span class="text-sm font-bold">📅 29 Aug 2026</span>
+            </div>
+          </div>
+
+          <button class="mt-7 inline-flex items-center gap-2 rounded-xl bg-white text-slate-900 px-5 py-3 text-sm font-extrabold hover:bg-teal-50 transition">
+            View trip details
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         EXPLORE DESTINATIONS
+         Search bar aur Dubai, Bali, Maldives jaise places ke cards
+         ===================================================== -->
+    <section id="destinations" class="mb-10">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-5">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-[0.18em] text-teal-700">Discover</span>
+          <h2 class="mt-1 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-950">Explore destinations</h2>
+        </div>
+        <a href="#" class="text-sm font-bold text-teal-700 hover:text-teal-800">View all destinations →</a>
+      </div>
+
+      <!-- Search Box -->
+      <div class="mb-5 rounded-2xl bg-white border border-slate-200 p-3 shadow-sm flex flex-col md:flex-row gap-3">
+        <div class="relative flex-1">
+          <input type="text" placeholder="Search destinations, cities or experiences..." class="w-full rounded-xl bg-slate-50 border border-transparent py-3 pl-11 pr-4 text-sm outline-none focus:bg-white focus:border-teal-300 transition" />
+        </div>
+        <button class="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-5 py-3 text-sm font-bold text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition">
+          Filters
+        </button>
+      </div>
+
+      <!-- 4 Destination Cards (Dubai, Bali, Maldives, Paris) -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Destination Card Demo (Dubai) -->
+        <article class="destination-card group relative h-[300px] overflow-hidden rounded-3xl bg-slate-900">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=85" alt="Dubai" class="absolute inset-0 w-full h-full object-cover" />
+          <div class="overlay absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+            <h3 class="mt-1 text-xl font-extrabold">Dubai</h3>
+            <div class="mt-3 flex items-center justify-between">
+              <span class="text-sm font-semibold">From ₹38,500</span>
+              <span class="w-8 h-8 rounded-lg bg-white/10 backdrop-blur flex items-center justify-center">→</span>
+            </div>
+          </div>
+        </article>
+        
+        <!-- Yahan Bali, Maldives aur Paris ke purane cards code mein waise hi chalenge, choti width bachane ke liye main unko same structure samajh raha hoon -->
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+         MY UPCOMING TRIPS + WALLET
+         Left mein confirmed trip (Golden Triangle) aur right mein bada wallet card
+         ===================================================== -->
+    <section class="grid lg:grid-cols-3 gap-5 mb-8">
+
+      <!-- Left Side: My upcoming trip list -->
+      <div class="lg:col-span-2 rounded-3xl bg-white border border-slate-200/80 shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+          <h2 class="text-lg font-extrabold text-slate-950">My upcoming trips</h2>
+        </div>
+        
+        <!-- Trip Card ki details -->
+        <div class="p-5">
+          <div class="rounded-2xl bg-slate-50 p-4 flex flex-col sm:flex-row gap-4">
+            <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=500&q=80" alt="Golden Triangle" class="w-full sm:w-32 h-28 rounded-xl object-cover" />
+            <div class="flex-1">
+              <span class="inline-flex rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-emerald-600">Confirmed</span>
+              <h3 class="mt-2 text-lg font-extrabold text-slate-950">Golden Triangle</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side: Bada Wallet Card -->
+      <div class="rounded-3xl bg-gradient-to-br from-slate-950 to-slate-900 text-white p-6 relative overflow-hidden">
+        <p class="text-sm font-semibold text-slate-400">Aman Travel Wallet</p>
+        <div class="mt-7 text-3xl font-extrabold">₹42,850</div>
+        
+        <!-- Wallet Buttons -->
+        <div class="mt-7 grid grid-cols-2 gap-3">
+          <button class="rounded-xl bg-teal-600 px-3 py-3 text-xs font-bold hover:bg-teal-500 transition">+ Add money</button>
+          <button class="rounded-xl bg-white/10 border border-white/10 px-3 py-3 text-xs font-bold text-white hover:bg-white/15 transition">Transactions</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =====================================================
+         FOOTER STATUS
+         Sabse niche page ka footer jahan privacy policy wagera ki links hoti hain
+         ===================================================== -->
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+      <p>Aman Travels · Your journey, beautifully organized.</p>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hover:text-teal-700 transition">Privacy</a>
+        <a href="#" class="hover:text-teal-700 transition">Terms</a>
+        <a href="#" class="hover:text-teal-700 transition">Support</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+{# Yahan block content khatam hota hai #}
+{% endblock content %}
